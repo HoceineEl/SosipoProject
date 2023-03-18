@@ -16,10 +16,7 @@ class president
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $role = Auth::user()->role->libelle;
-        if ($role == 'president') $Ispresident = true;
-        else $Ispresident = false;
-        if (!$Ispresident)
+        if (!(Auth::user()->role_id == "1"))
             return redirect()->route('logout');
 
         return $next($request);

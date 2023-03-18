@@ -1,127 +1,252 @@
-        <!doctype html>
-        <html lang="en">
-        <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Home - sosipo </title>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-                <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        </head>
-        <body>
 
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-        </symbol>
-        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-        </symbol>
-        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-        </symbol>
-    </svg>
-    <div class="container-fluid px-0">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
+@php
+       use Illuminate\Support\Carbon;
+@endphp
+<!DOCTYPE html>
+<html lang="en">
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item mx-3">
-                            <a class="nav-link" href="/home">
-                                <i class="fs-4 bi-house"></i>
-                                <span class="ms-1 d-none d-sm-inline">Home</span>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png" href="{{ asset('images/sosipologo.png') }}">
+  <title>
+    Sosipo
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- CSS Files -->
+
+  <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css?v=2.0.4') }}" rel="stylesheet" />
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<style>
+  main {
+    min-height: 100vh; /* set minimum height to the viewport height */
+  }
+</style>
+
+</head>
+
+<body class="g-sidenav-show   bg-white-300">
+    <div class="min-height-200 bg-success position-absolute w-100" style="background-image: url('{{ asset('images/img3.wallspic.com-triticale-agriculture-barley-food_grain-crop-2560x1600.jpg') }}')"></div>
+        <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs  border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+            <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-10 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand m-0" href="#" target="_blank">
+                <img src="{{ asset('images/sosipologo.png') }}" class="navbar-brand-img h-100" alt="main_logo">
+                <span class="ms-1 font-weight-bold">Sosipo</span>
+            </a>
+            </div>
+            <hr class="horizontal dark mt-0">
+            <div class="collapse navbar-collapse " >
+                    <ul class="navbar-nav">
+
+                        @if( auth()->user()->role_id != '3')
+                            <li class="nav-item mt-3">
+                            <a class="nav-link btn btn btn-success text-light " href="{{ route('recette.show') }}">
+                                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="bi bi-graph-up-arrow text-light text-lg"></i>
+                                </div>
+                                <span class="nav-link-text ms-2 mt-2">Recette</span>
                             </a>
-                        </li>
-                        <li class="nav-item d-flex mx-3" >
-                            <button class="nav-link btn btn-outline-primary position-relative " >
-                                <a href="{{ route('approuve.show') }}" class="text-decoration-none">
-                                    Notifications
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                        {{ DB::table('recettes')->where('approuve', false)->count() }}+
-                                    </span>
-                                </a>
-                            </button>
-                        </li>
-                        <li class="nav-item dropdown mx-3">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fs-4 bi-speedometer2"></i>
-                                <span class="ms-1 d-none d-sm-inline">Consultation</span>
+                            <li class="nav-item mt-3">
+                            <a class="nav-link  btn btn-success text-light  "  href="{{ route('depense.show') }}">
+                                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="bi bi-graph-down-arrow text-light text-lg "></i>
+                                </div>
+                                <span class="nav-link-text ms-1 mt-2">Depense</span>
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ route('recette.show') }}"><i class="bi bi-graph-up-arrow me-2"></i>Recettes</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-graph-down-arrow me-2"></i>Depenses</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-archive me-2"></i>Documents</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <div class="dropdown me-5">
-                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png"  width="30" height="30" class="rounded-circle">
-                            <span class="d-none d-sm-inline mx-1">{{ auth()->user()->name }}</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="#">New project...</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{{ route('logout') }}">Sign out</a></li>
+                            <li class="nav-item mt-3">
+                            <a class="nav-link  btn btn-success text-light  "  href="{{ route('charts') }}">
+                                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fa fa-dashboard text-light  text-lg"></i>
+                                </div>
+                                <span class="nav-link-text ms-1 mt-2">Dashboard</span>
+                            </a>
+                            </li>
+                        @endif
+
+                        <li class="nav-item mt-3">
+                        <a class="nav-link  btn btn-success text-light "  href="{{ route('document.show') }}">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-filetype-doc text-light text-lg"></i>
+                            </div>
+                            <span class="nav-link-text ms-1 mt-2">Document</span>
+                        </a>
+                        </li>
+
+                    </ul>
+            </div>
+        </aside>
+        <main class="main-content position-relative ">
+            <!-- Navbar -->
+            <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+                <div class="container-fluid py-1 px-3">
+                    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                    <ul class="navbar-nav ms-auto justify-content-end ">
+                            @if(Auth::user()->role_id =="1")
+                            <li class="nav-item dropdown text-dark pe-2 mx-3 d-flex align-items-center">
+                                <a href="javascript:;"  class="nav-link text-light p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-bell-fill cursor-pointer" ></i>
+                                </a>
+                                <ul class="dropdown-menu  dropdown-menu-end text-dark  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                                    <li class="mb-2">
+                                        <a class="dropdown-item text-dark border-radius-md" href="{{ route('approuve.depense.show') }}">
+                                            <div class="d-flex py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                    <span class="font-weight-bold">Depenses</span><strong class="badge text-danger">{{ DB::table('depenses')->where('approuve', false)->count()  }}</strong>
+                                                </h6>
+                                                <p class="text-xs text-secondary mb-0">
+                                                <i class="fa fa-clock me-1"></i>
+                                                    @php
+                                                                $depense = DB::table('depenses')->where('approuve',false)->first();
+                                                                if($depense)
+                                                                {
+                                                                    $created_at = Carbon::createFromFormat('Y-m-d H:i:s', $depense->created_at);
+                                                                    $diff = $created_at->diffForHumans();
+                                                                    echo $diff;
+                                                                }else   echo '<p class="text-xs text-secondary mb-0">Tout les depenses sont approuvé.</p>'
+                                                    @endphp
+                                                </p>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a class="dropdown-item border-radius-md" href="{{ route('approuve.recette.show') }}">
+                                            <div class="d-flex py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                <span class="font-weight-bold">Recettes</span><strong class="badge text-danger ">{{ DB::table('depenses')->where('approuve', false)->count()  }}</strong>
+                                                </h6>
+                                                <p class="text-xs text-secondary mb-0">
+                                                <i class="fa fa-clock me-1"></i>
+                                                    @php
+                                                                $recette = DB::table('recettes')->where('approuve',false)->first();
+                                                                if($recette)
+                                                                {
+                                                                    $created_at = Carbon::createFromFormat('Y-m-d H:i:s', $recette->created_at);
+                                                                    $diff = $created_at->diffForHumans();
+                                                                    echo $diff;
+                                                                }else   echo '<p class="text-xs text-secondary mb-0">Tout les recettes  sont approuvé.</p>'
+                                                    @endphp
+                                                </p>
+                                            </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            @endif
+                            <li class="nav-item d-flex  mx-3  align-items-center">
+                                <img src="{{ asset('images/O4PjbczuLsSRp8XWvtUM18lbv2POPNXUZNvknpzy.png') }}" style="width:40px;height:40px" class="rounded-circle img-thumbnail" alt="{{ auth()->user()->name }}" title="{{ auth()->user()->name }}" data-toggle="tooltip" data-placement="top">
+                            </li>
+                            <li class="nav-item d-flex  mx-3  align-items-center">
+                            <a href="{{ route('logout') }}" class="nav-link text-white font-weight-bold px-0">
+                                <i class="fa fa-user me-sm-1"></i>
+                                <span class="d-sm-inline d-none">Sign out</span>
+                            </a>
+                            </li>
+                                <li class="nav-item d-lg-none ps-3  mx-3  d-flex align-items-center">
+                                <a href="#" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                                    <div class="sidenav-toggler-inner">
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                    </div>
+                                </a>
+                                </li>
+                            <li class="nav-item pe-3  mx-3  d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-white p-0">
+                                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                            </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
-            </div>
-        </nav>
-        @yield('home')
-        <div class="container py-3">
-            @if (session('success'))
-                <div class="alert alert-success d-flex align-items-center" role="alert">
-                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                            <div>
-                                {{ session('success') }}
-                            </div>
-                            </div>
-                    @endif
-                    @if (session('error'))
-                    <div class="col-5 mx-auto">
-                        <div class="alert alert-danger d-flex align-items-center" role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                        <div>
-                            {{ session('error') }}
-                        </div>
-                        </div>
+            </nav>
+            <!-- End Navbar -->
+            <div class="container-fluid py-4">
+                <div class="row">
+                    <div class="col-3">
                     </div>
-                    @endif
-                        @yield('content')
+                    <div class="col-lg-12 col-sm-12">
+                        {{-- Content Section  --}}
+                            @if (session('success'))
+                                <div class="col-5 mx-auto">
+                                    <div class="alert alert-success d-flex text-light align-items-center" role="alert">
+                                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                                <div>
+                                                    {{ session('success') }}
+                                                </div>
+                                                </div>
+                                </div>
+                            @endif
+                                    @if (session('error'))
+                                    <div class="col-5 mx-auto">
+                                        <div class="alert alert-warning text-light d-flex align-items-center" role="alert">
+                                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                        <div>
+                                            {{ session('error') }}
+                                        </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                        @yield('content')
+                                    {{-- Content Section  --}}
+                    </div>
+                </div>
             </div>
-        </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('#recettes-table').DataTable({
-        "paging": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "responsive": true,
-        "columnDefs": [
-            { "orderable": false, "targets": [5,6,7] }
-        ]
-    });
-});
+        </main>
+    </div>
+        <!--   Core JS Files   -->
+            <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
+        <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+        <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+        <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
+        <script>
+            var win = navigator.platform.indexOf('Win') > -1;
+            if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+            }
+        </script>
 
-</script>
+        <script src="{{ asset('assets/js/argon-dashboard.min.js?v=2.0.4') }}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $('#recettes-table').DataTable({
+                        "paging": true,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true,
+                        "responsive": true,
+                        "columnDefs": [
+                            { "orderable": false, "targets": [5,6,7] }
+                        ]
+                    });
+                });
 
+            </script>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    </body>
-    </html>
+      @yield('scripts')
+</body>
+
+</html>
 
 

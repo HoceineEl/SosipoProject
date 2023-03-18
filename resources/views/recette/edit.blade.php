@@ -53,12 +53,12 @@
                                         @if ($recette->modepaiement == 1)
                                         selected
                                         @endif
-                                        >Banque</option>
+                                        >Chéque</option>
                                     <option value="2"
                                         @if ($recette->modepaiement == 2)
                                         selected
                                         @endif
-                                        >Caisse</option>
+                                        >En Espéce</option>
                                 </select>
                                 @error('modepaiement')
                                 <div class="invalid-feedback">{{ $message }}</div>

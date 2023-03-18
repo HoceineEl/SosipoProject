@@ -49,4 +49,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Recette::class);
     }
+    public function document()
+    {
+        return $this->hasMany(Document::class);
+    }
 }

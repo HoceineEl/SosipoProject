@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="card">
+                <div class="card text-dark">
                 <div class="card-body">
                     <h5 class="card-title">Ajouter une recette</h5>
 							<form method="POST" class="needs-validation" novalidate="" action="{{ route('recette.add') }}" enctype="multipart/form-data" autocomplete="off">
@@ -38,8 +38,8 @@
                                 <div class="mb-3">
                                     <label for="av" class="form-label">Mode paiement</label>
                                     <select name="modepaiement" class="form-control" id="#mode">
-                                        <option value="1" >Banque</option>
-                                        <option value="2" >Caisse</option>
+                                        <option value="1" >Chéque</option>
+                                        <option value="2" >En Espéce</option>
                                     </select>
                                     @error('modepaiement')
                                         <div class="error">{{ $message }}</div>

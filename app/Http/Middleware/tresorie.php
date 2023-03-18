@@ -16,12 +16,9 @@ class tresorie
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $role = Auth::user()->role->libelle;
-        if ($role == 'tresorie') $isTresorie = true;
-        else $isTresorie = false;
-        if (!$isTresorie)
+        if (!(Auth::user()->role_id == "2"))
             return redirect()->route('logout');
-
+        
         return $next($request);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Recette;
 use App\Models\Rubrique;
+use App\Models\Solde;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -39,25 +40,45 @@ class RecetteController extends Controller
 
     public function add(Request $request)
     {
+        // Validate the input fields
         $request->validate([
             'montant' => 'numeric',
             'feuille' => 'required|mimes:pdf',
             'designation' => 'required|max:1000',
         ]);
+
+        // Find the corresponding rubrique based on the input
+        $rubrique = Rubrique::find($request->rubrique);
+
+        // If the rubrique is for "Augmentation de la banque"
+        if ($rubrique->libelle == "Augmentation de la banque") {
+            // Check if the year has already been entered in Solde
+            if (Solde::first()->annee == date('Y')) {
+                // Redirect with an error message
+                return redirect('recette/show')->with('error', 'L’année a déjà été saisie dans Solde.');
+            }
+        }
+
+        // Create a new Recette instance
         $recette = new Recette;
+
+        // Set the input fields to the corresponding properties of the Recette instance
         $recette->designation = $request->designation;
         $recette->montant = $request->montant;
         $recette->modepaiement = $request->modepaiement;
         $recette->rubrique_id = $request->rubrique;
         $recette->approuve = false;
         $recette->user_id = auth()->id();
-        // Store the PDF file in storage/app/public directory
+
+        // Store the uploaded PDF file in storage/app/public directory
         $pdfPath = $request->file('feuille')->store();
+
         // Save the PDF file path to the database
         $recette->feuille = $pdfPath;
         $recette->save();
-        // Redirect back with a success message
-        return redirect('recette/show')->with('success', 'Recette enregistre avec succes.');
+
+        // Redirect with a success message
+        return redirect('recette/show')->with('success', 'Recette enregistrée avec succès.');
     }
 
 
@@ -83,6 +104,16 @@ class RecetteController extends Controller
         // Check if recette has been approved
         if ($recette->approuve && $request->montant != $recette->montant) {
             return back()->withError("We don't do that here.");
+        }
+        $rubrique = Rubrique::find($request->rubrique);
+
+        // If the rubrique is for "Augmentation de la banque"
+        if ($rubrique->libelle == "Augmentation de la banque") {
+            // Check if the year has already been entered in Solde
+            if (Solde::first()->annee == date('Y')) {
+                // Redirect with an error message
+                return redirect('recette/show')->with('error', 'L’année a déjà été saisie dans Solde.');
+            }
         }
         $recette->designation = $request->designation;
         $recette->montant = $request->montant;
@@ -127,4 +158,7 @@ class RecetteController extends Controller
         }
         return back()->withError('Vous ne pouvez pas supprimer cet recette.');
     }
+
+
+
 }

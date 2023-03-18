@@ -16,10 +16,7 @@ class secretaire
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $role = Auth::user()->role->libelle;
-        if ($role == 'secretaire') $isSecretaire = true;
-        else $isSecretaire = false;
-        if (!$isSecretaire)
+        if (!(Auth::user()->role_id == "3"))
             return redirect()->route('logout');
 
         return $next($request);

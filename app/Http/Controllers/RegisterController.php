@@ -33,7 +33,7 @@ class RegisterController extends Controller
         request()->validate([
             'name'     => 'required|unique:users',
             'email'    => 'required|email|unique:users',
-            'password' => 'required',
+            'password' => 'required|confirmed',
         ]);
 
         $user = new User;
@@ -42,7 +42,8 @@ class RegisterController extends Controller
         $user->role_id = request('role');
         $user->password = bcrypt(request('password'));
         $avatar = request('avatar');
-        $url = $avatar->store('images');
+        $url1 = $avatar->store('images');
+        $url = str_replace("images/", "", $url1);
         $user->url = $url;
         $user->save();
         $success = "Inscription términé avec succes.";
