@@ -16,9 +16,9 @@ class tresorie
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!(Auth::user()->role_id == "2"))
+        if (Auth::user()->role_id != "2")
             return redirect()->route('logout');
-        
+
         return $next($request);
     }
 }

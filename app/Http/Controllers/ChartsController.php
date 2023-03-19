@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Adherent;
 use App\Models\Depense;
+use App\Models\Document;
 use App\Models\Recette;
 use App\Models\Rubrique;
 use App\Models\Solde;
@@ -14,14 +16,6 @@ class ChartsController extends Controller
 
     public function chart()
     {
-        // Fetch the solde chart data
-        $soldeData = Solde::orderBy('annee')->get();
-        $years = $soldeData->pluck('annee');
-        $caisseValues = $soldeData->pluck('caisse');
-        $banqueValues = $soldeData->pluck('banque');
-        $latestSolde = Solde::orderBy('annee', 'desc')->first();
-        $latestCaisse = $latestSolde->caisse;
-        $latestBanque = $latestSolde->banque;
 
         // Fetch the recette and depense rubrique data
         $recetteRubrique = $this->recetteRubrique();
@@ -29,13 +23,10 @@ class ChartsController extends Controller
 
         // Prepare the chart data
         $data = [
-            'years' => $years,
-            'caisseValues' => $caisseValues,
-            'banqueValues' => $banqueValues,
-            'latestCaisse' => $latestCaisse,
-            'latestBanque' => $latestBanque,
+            'solde' => $this->soldeStatistics(),
             'recetteRubrique' => $recetteRubrique,
             'depenseRubrique' => $depenseRubrique,
+            'counts' => $this->count(),
         ];
 
         // Pass the chart data to the view
@@ -79,10 +70,26 @@ class ChartsController extends Controller
         $latestSolde = Solde::orderBy('annee', 'desc')->first();
         $latestCaisse = $latestSolde->caisse;
         $latestBanque = $latestSolde->banque;
-
+        $data = [
+            'years' => $years,
+            'caisseValues' => $caisseValues,
+            'banqueValues' => $banqueValues,
+            'latestCaisse' => $latestCaisse,
+            'latestBanque' => $latestBanque,
+        ];
         // Pass the data to the view
-        return view('solde.index', compact('years', 'caisseValues', 'banqueValues', 'latestCaisse', 'latestBanque'));
+        return $data;
     }
-
-
+    public function count()
+    {
+        $numberOfRecettes = Recette::get()->where('approuve', true)->count();
+        $numberOfDepenses = Depense::get()->where('approuve', true)->count();
+        $numberOfDocuments = Document::get()->count();
+        $numberOfAdherents = Adherent::get()->count();
+        $solde = Solde::get()->where('annee', date('Y'))->first();
+        $banqueSolde = $solde->banque;
+        $caisseSolde = $solde->caisse;
+        $data = compact('numberOfRecettes', 'numberOfDepenses', 'numberOfDocuments', 'numberOfAdherents', 'banqueSolde', 'caisseSolde');
+    return $data;
+    }
 }

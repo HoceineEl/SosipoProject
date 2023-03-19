@@ -47,7 +47,14 @@
             <hr class="horizontal dark mt-0">
             <div class="collapse navbar-collapse " >
                     <ul class="navbar-nav">
-
+                            <li class="nav-item mt-3">
+                                <a class="nav-link  btn btn-success text-light  "  href="{{ route('charts') }}">
+                                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                    <i class="fa fa-dashboard text-light  text-lg"></i>
+                                    </div>
+                                    <span class="nav-link-text ms-1 mt-2">Dashboard</span>
+                                </a>
+                            </li>
                         @if( auth()->user()->role_id != '3')
                             <li class="nav-item mt-3">
                             <a class="nav-link btn btn btn-success text-light " href="{{ route('recette.show') }}">
@@ -64,16 +71,7 @@
                                 <span class="nav-link-text ms-1 mt-2">Depense</span>
                             </a>
                             </li>
-                            <li class="nav-item mt-3">
-                            <a class="nav-link  btn btn-success text-light  "  href="{{ route('charts') }}">
-                                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="fa fa-dashboard text-light  text-lg"></i>
-                                </div>
-                                <span class="nav-link-text ms-1 mt-2">Dashboard</span>
-                            </a>
-                            </li>
                         @endif
-
                         <li class="nav-item mt-3">
                         <a class="nav-link  btn btn-success text-light "  href="{{ route('document.show') }}">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -82,7 +80,6 @@
                             <span class="nav-link-text ms-1 mt-2">Document</span>
                         </a>
                         </li>
-
                     </ul>
             </div>
         </aside>

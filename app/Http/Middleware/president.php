@@ -16,7 +16,7 @@ class president
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!(Auth::user()->role_id == "1"))
+        if (Auth::user()->role_id != "1")
             return redirect()->route('logout');
 
         return $next($request);
