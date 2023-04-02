@@ -28,6 +28,7 @@
                     </thead>
                     <tbody>
                         @foreach ($depenses as $depense)
+                        
                             <tr>
                                 <td>{{ $depense->designation }}</td>
                                 <td>{{ $depense->montant }}</td>
@@ -47,15 +48,14 @@
                                     @endif
                                 </td>
                                 <td>{{ $depense->user->name }}</td>
-                                                                <td>
+                                <td>
                                     <a href="{{ url('depense/pdf/'.$depense->feuille) }}" class="btn btn-primary" target="_blank"><i class="bi bi-file-earmark-pdf"></i></a>
                                 </td>
                                 <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="{{ route('depense.edit',['id' => $depense->id]) }}" class="btn btn-primary pe-2">
+                                        <a href="{{ route('depense.edit',['id' => $depense->id]) }}" class="btn btn-primary mx-1">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $depense->id }}">
+                                        <button type="button" class="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $depense->id }}">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                         <!-- Delete confirmation modal -->
@@ -69,18 +69,25 @@
                                                     <div class="modal-body text-dark">
                                                         Vous ne pouvez pas supprimer cette depense.
                                                     </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                    <form action="{{ route('depense.delete', $depense->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
-                                                    </form>
-                                                </div>
+                                                    <div class="modal-footer">
+                                                            <div class="row justify-content-end">
+                                                                <div class="col-auto">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                <form action="{{ route('depense.delete', $depense->id) }}"  method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+
                                 </td>
                             </tr>
                         @endforeach

@@ -2,105 +2,131 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <div class="card h-100">
-                <div class="card-body p-3">
-                    <div class="row">
-                        <div class="col-8">
-                            <h5 class="card-title">Number of Recettes</h5>
-                            <p class="card-text">{{ $data['counts']['numberOfRecettes'] }}</p>
+    <div class="bg-gradient-success mb-5 rounded">
+        <div class="row p-5">
+            <div class="col-md-3 mb-3">
+                <div class="card h-100 ">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <h5 class="card-title">Number of Recettes</h5>
+                                <p class="card-text">{{ $data['counts']['numberOfRecettes'] }}</p>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-success shadow-primary text-center rounded-circle">
+                                    <i class="fas fa-line-chart text-lg opacity-10"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                <i class="fas fa-line-chart text-lg opacity-10"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card h-100 ">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <h5 class="card-title">Number of Depenses</h5>
+                                <p class="card-text">{{ $data['counts']['numberOfDepenses'] }}</p>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-success shadow-primary text-center rounded-circle">
+                                    <i class="fas fa-money-bill-wave text-lg opacity-10"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card h-100 ">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <h5 class="card-title">Number of Documents</h5>
+                                <p class="card-text">{{ $data['counts']['numberOfDocuments'] }}</p>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-success shadow-primary text-center rounded-circle">
+                                    <i class="fas fa-file-alt text-lg opacity-10"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card h-100 ">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <h5 class="card-title">Number of Adherents</h5>
+                                <p class="card-text">{{ $data['counts']['numberOfAdherents'] }}</p>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-success shadow-primary text-center rounded-circle">
+                                    <i class="fas fa-users text-lg opacity-10"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
-            <div class="card h-100">
-                <div class="card-body p-3">
-                    <div class="row">
-                        <div class="col-8">
-                            <h5 class="card-title">Number of Depenses</h5>
-                            <p class="card-text">{{ $data['counts']['numberOfDepenses'] }}</p>
-                        </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                <i class="fas fa-money-bill-wave text-lg opacity-10"></i>
+        <div class="row p-5">
+            <div class="col mb-3">
+                <div class="card h-100
+                    @if ($data['counts']['caisseSolde'] < 0)
+                        animate__animated animate__headShake animate__infinite text-light
+                    @else
+                        bg-light
+                    @endif
+                " @if ($data['counts']['caisseSolde'] < 0)
+                    style="background-color: #d57676"
+                @endif>
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <h5 class="card-title">Solde dans la caisse</h5>
+                                @if ($data['counts']['caisseSolde'] < 0)
+                                    <p class="card-text text-warning">{{ $data['counts']['caisseSolde'] }}DH</p>
+                                @else
+                                    <p class="card-text">{{ $data['counts']['caisseSolde'] }}DH</p>
+                                @endif
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-success shadow-primary text-center rounded-circle">
+                                    <i class="fa fa-money text-lg opacity-10" aria-hidden="true"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3 mb-3">
-            <div class="card h-100">
-                <div class="card-body p-3">
-                    <div class="row">
-                        <div class="col-8">
-                            <h5 class="card-title">Number of Documents</h5>
-                            <p class="card-text">{{ $data['counts']['numberOfDocuments'] }}</p>
-                        </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                <i class="fas fa-file-alt text-lg opacity-10"></i>
+                <div class="col mb-3">
+                <div class="card h-100
+                @if ($data['counts']['banqueSolde'] < 0)
+                    animate__animated animate__headShake animate__infinite text-light
+                @else
+                    bg-light
+                @endif
+                "   @if ($data['counts']['banqueSolde'] < 0)
+                        style="background-color: #d57676"
+                    @endif>
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <h5 class="card-title">Solde dans la Banque</h5>
+                                @if ($data['counts']['banqueSolde'] < 0)
+                                    <p class="card-text text-warning">{{ $data['counts']['banqueSolde'] }}DH</p>
+                                @else
+                                <p class="card-text text-success">{{ $data['counts']['banqueSolde'] }}DH</p>
+                                @endif
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-3">
-            <div class="card h-100">
-                <div class="card-body p-3">
-                    <div class="row">
-                        <div class="col-8">
-                            <h5 class="card-title">Number of Adherents</h5>
-                            <p class="card-text">{{ $data['counts']['numberOfAdherents'] }}</p>
-                        </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                <i class="fas fa-users text-lg opacity-10"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3 mb-3">
-            <div class="card h-100">
-                <div class="card-body p-3">
-                    <div class="row">
-                        <div class="col-8">
-                            <h5 class="card-title">Solde dans la caisse</h5>
-                            <p class="card-text">{{ $data['counts']['caisseSolde'] }}</p>
-                        </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                <i class="fa fa-money text-lg opacity-10" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 mb-3">
-            <div class="card h-100">
-                <div class="card-body p-3">
-                    <div class="row">
-                        <div class="col-8">
-                            <h5 class="card-title">Solde dans la banque</h5>
-                            <p class="card-text">{{ $data['counts']['banqueSolde'] }}</p>
-                        </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                <i class="fa fa-university text-lg opacity-10" aria-hidden="true"></i>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-success shadow-primary text-center rounded-circle">
+                                    <i class="fa fa-university text-lg opacity-10 text-light" aria-hidden="true"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -226,7 +252,7 @@
 
     var recetteCtx = document.getElementById('recette-chart').getContext('2d');
     var recetteChart = new Chart(recetteCtx, {
-        type: 'polarArea',
+        type: 'pie',
         data: {
         labels: recetteLabels,
         datasets: [{
@@ -242,7 +268,7 @@
 
     var depenseCtx = document.getElementById('depense-chart').getContext('2d');
     var depenseChart = new Chart(depenseCtx, {
-        type: 'doughnut',
+        type: 'pie',
         data: {
         labels: depenseLabels,
         datasets: [{
@@ -260,13 +286,12 @@
 
 <script>
     // Extract the years, caisse, and banque values from the data
-    var solde = @json($data['solde']);
-    var years = solde.years;
-    var caisseValues = solde.caisseValues;
-    var banqueValues = solde.banqueValues;
-    var latestCaisse = solde.latestCaisse;
-    var latestBanque = solde.latestBanque;
-
+        var solde = @json($data['solde']);
+        var years = solde.years;
+        var caisseValues = solde.caisseValues;
+        var banqueValues = solde.banqueValues;
+        var latestCaisse = solde.latestCaisse;
+        var latestBanque = solde.latestBanque;
     // Create a line chart using Chart.js library
     var ctx = document.getElementById('solde-chart').getContext('2d');
     var chart = new Chart(ctx, {

@@ -39,21 +39,15 @@ class ApprouveDepenseController extends Controller
         $depense->approuve = true;
 
         // Get the Solde with id "1"
-        $solde = Solde::find("1");
+        $solde = Solde::where('annee',date('Y'))->get()->first();
 
         // Check the mode of payment for the Depense
         if ($depense->modepaiement == "1") {
-            // If it's paid with bank, check if the bank balance will be negative after subtracting the Depense amount
-            if ($solde->banque - $depense->montant < 0)
-                // If so, redirect to the same page with an error message
-                return redirect()->route('approuve.depense.show')->withError('Solde banque insuffisant.');
+
             // Subtract the Depense amount from the bank balance
             $solde->banque -= $depense->montant;
         } else {
-            // If it's paid with cash, check if the cash balance will be negative after subtracting the Depense amount
-            if ($solde->caisse - $depense->montant < 0)
-                // If so, redirect to the same page with an error message
-                return redirect()->route('approuve.depense.show')->withError('Solde caisse insuffisant.');
+            
             // Subtract the Depense amount from the cash balance
             $solde->caisse -= $depense->montant;
         }

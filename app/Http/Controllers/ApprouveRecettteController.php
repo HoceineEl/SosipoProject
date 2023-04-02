@@ -27,7 +27,7 @@ class ApprouveRecettteController extends Controller
     {
         $recette = Recette::find($id);
         $recette->approuve = true;
-        $solde = Solde::find("1");
+        $solde = Solde::where('annee',date('Y'))->first();
         if ($recette->modepaiement == "1") {
             $solde->banque += $recette->montant;
         } else  $solde->caisse += $recette->montant;

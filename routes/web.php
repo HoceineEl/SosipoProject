@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdherentController;
 use App\Http\Controllers\ApprouveRecettteController;
 use App\Http\Controllers\ApprouveDepenseController;
 use App\Http\Controllers\ChartsController;
@@ -14,18 +15,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
-/* Start Login & Register */
 
 Route::get('/', function () {
     Auth::logout();
@@ -48,6 +38,7 @@ Route::middleware(['auth', 'president'])->group(function () {
     Route::get('/approuve/recette/{id}', [ApprouveRecettteController::class, 'approved'])->name('approuve.recette.post');
     Route::delete('/approuve/recette/delete/{id}', [ApprouveRecettteController::class, 'destroy'])->name('approuve.recette.cancel');
     /* End approuve Recette*/
+
     /* Start approuve Depense*/
     Route::get('/approuve/depense/show', [ApprouveDepenseController::class, 'index'])->name('approuve.depense.show');
     Route::post('/approuve/depense/{id}', [ApprouveDepenseController::class, 'approved'])->name('approuve.depense.post');
@@ -55,35 +46,41 @@ Route::middleware(['auth', 'president'])->group(function () {
     /* End approuve Depense*/
 });
 
-Route::middleware(['auth', 'tresorie'])->group(function () {
+Route::middleware(['auth', 'isTresorieOrPresident'])->group(function () {
 
-    /* Start approuve */
-
+    /* Start add */
     Route::get('/recette/add',  [RecetteController::class, 'index'])->name('recette.add');
     Route::post('/recette/add', [RecetteController::class, 'add'])->name('post.recette.add');
     Route::get('/depense/add',  [DepenseController::class, 'index'])->name('depense.add');
     Route::post('/depense/add', [DepenseController::class, 'add'])->name('post.depense.add');
+    /* End add */
 
-    /* End approuve */
+    /* Begin recette */
+    Route::get('/recette/edit/{id}', [RecetteController::class, 'edit'])->name('recette.edit');
+    Route::delete('/recette/delete/{id}', [RecetteController::class, 'destroy'])->name('recette.delete');
+    Route::put('/recette/update/{id}', [RecetteController::class, 'update'])->name('post.recette.edit');
+    Route::get('/recette/show', [RecetteController::class, 'show'])->name('recette.show');
+    Route::get('/recette/pdf/{path}', [RecetteController::class, 'viewPdf'])->name('viewPdf');
+    /* End Recettes */
+
+    /* Start Depnses */
+    Route::get('/depense/edit/{id}',     [DepenseController::class, 'edit'])->name('depense.edit');
+    Route::delete('depense/delete/{id}', [DepenseController::class, 'destroy'])->name('depense.delete');
+    Route::put('/depense/update/{id}', [DepenseController::class, 'update'])->name('post.depense.edit');
+    Route::get('/depense/show', [DepenseController::class, 'show'])->name('depense.show');
+    Route::get('/depense/pdf/{path}', [DepenseController::class, 'viewPdf'])->name('viewPdf');
+
+    /* End Depnses */
 });
 
 Route::middleware(['auth', 'secretaire'])->group(function () {
 
     /* Start approuve */
-
     Route::get('/document/add',  [DocumentController::class, 'index'])->name('document.add');
     Route::post('/document/add', [DocumentController::class, 'add'])->name('post.document.add');
     /* End approuve */
 });
 
-
-Route::get('/recette/edit/{id}', [RecetteController::class, 'edit'])->name('recette.edit');
-Route::delete('/recette/delete/{id}', [RecetteController::class, 'destroy'])->name('recette.delete');
-Route::put('/recette/update/{id}', [RecetteController::class, 'update'])->name('post.recette.edit');
-Route::get('/recette/show', [RecetteController::class, 'show'])->name('recette.show');
-Route::get('/recette/pdf/{path}', [RecetteController::class, 'viewPdf'])->name('viewPdf');
-
-/* End Recettes */
 
 /* start doc */
 
@@ -95,13 +92,10 @@ Route::get('/document/pdf/{path}', [DocumentController::class, 'viewPdf'])->name
 
 /* end doc */
 
-/* Start Depnses */
-Route::get('/depense/edit/{id}',     [DepenseController::class, 'edit'])->name('depense.edit');
-Route::delete('depense/delete/{id}', [DepenseController::class, 'destroy'])->name('depense.delete');
-Route::put('/depense/update/{id}', [DepenseController::class, 'update'])->name('post.depense.edit');
-Route::get('/depense/show', [DepenseController::class, 'show'])->name('depense.show');
-Route::get('/depense/pdf/{path}', [DepenseController::class, 'viewPdf'])->name('viewPdf');
 
-/* End Depnses */
 
 Route::get('/home', [ChartsController::class, 'chart'])->name('charts');
+
+
+Route::resource('adherents', AdherentController::class);
+

@@ -66,14 +66,20 @@
                                                     <div class="modal-body text-dark">
                                                         Vous ne pouvez pas supprimer cette document.
                                                     </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                    <form action="{{ route('document.delete', $document->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
-                                                    </form>
-                                                </div>
+                                                     <div class="modal-footer">
+                                                            <div class="row justify-content-end">
+                                                                <div class="col-auto">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                <form action="{{ route('document.delete', $document->id) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

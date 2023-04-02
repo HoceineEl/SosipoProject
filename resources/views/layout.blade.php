@@ -1,6 +1,7 @@
 
 @php
-       use Illuminate\Support\Carbon;
+    use Illuminate\Support\Carbon;
+    use Illuminate\Support\Facades\Storage;
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -20,23 +21,40 @@
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- CSS Files -->
-
-  <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css?v=2.0.4') }}" rel="stylesheet" />
-         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <!-- animation css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- End animation css -->
+    <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css?v=2.0.4') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <style>
-  main {
-    min-height: 100vh; /* set minimum height to the viewport height */
-  }
+    main {
+        min-height: 100vh; /* set minimum height to the viewport height */
+    }
+    /* Define the gradient background colors */
+    .btn-gradient-success {
+        background: linear-gradient(to left, #2DCE92, #2DCEC2);
+        background-color: #28a745; /* fallback color for older browsers */
+        border-color: #28a745;
+        color: #fff;
+    }
+
+    /* Override the default "btn-success" class */
+    .btn-gradient-success:hover {
+        background: linear-gradient(to right, #2DCEC2, #2DCE92);
+        background-color: #007bff; /* fallback color for older browsers */
+        border-color: #007bff;
+    }
+
 </style>
 
 </head>
 
 <body class="g-sidenav-show   bg-white-300">
     <div class="min-height-200 bg-success position-absolute w-100" style="background-image: url('{{ asset('images/img3.wallspic.com-triticale-agriculture-barley-food_grain-crop-2560x1600.jpg') }}')"></div>
-        <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs  border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+        <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs rounded  my-3 fixed-start ms-4 " id="sidenav-main">
             <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-10 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0" href="#" target="_blank">
@@ -45,53 +63,58 @@
             </a>
             </div>
             <hr class="horizontal dark mt-0">
-            <div class="collapse navbar-collapse " >
+            <div class="collapse navbar-collapse h-100" >
                     <ul class="navbar-nav">
                             <li class="nav-item mt-3">
-                                <a class="nav-link  btn btn-success text-light  "  href="{{ route('charts') }}">
+                                <a class="nav-link  btn btn-gradient-success text-light  "  href="{{ route('charts') }}">
                                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="fa fa-dashboard text-light  text-lg"></i>
                                     </div>
-                                    <span class="nav-link-text ms-1 mt-2">Dashboard</span>
+                                    <span class="nav-link-text ms-1 mt-2 fw-bold">Dashboard</span>
                                 </a>
                             </li>
                         @if( auth()->user()->role_id != '3')
                             <li class="nav-item mt-3">
-                            <a class="nav-link btn btn btn-success text-light " href="{{ route('recette.show') }}">
+                            <a class="nav-link btn btn btn-gradient-success text-light " href="{{ route('recette.show') }}">
                                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="bi bi-graph-up-arrow text-light text-lg"></i>
                                 </div>
-                                <span class="nav-link-text ms-2 mt-2">Recette</span>
+                                <span class="nav-link-text ms-2 mt-2 fw-bold">Recette</span>
                             </a>
                             <li class="nav-item mt-3">
-                            <a class="nav-link  btn btn-success text-light  "  href="{{ route('depense.show') }}">
+                            <a class="nav-link  btn btn-gradient-success text-light  "  href="{{ route('depense.show') }}">
                                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="bi bi-graph-down-arrow text-light text-lg "></i>
                                 </div>
-                                <span class="nav-link-text ms-1 mt-2">Depense</span>
+                                <span class="nav-link-text ms-1 mt-2 fw-bold">Depense</span>
                             </a>
                             </li>
                         @endif
                         <li class="nav-item mt-3">
-                        <a class="nav-link  btn btn-success text-light "  href="{{ route('document.show') }}">
+                        <a class="nav-link  btn btn-gradient-success text-light "  href="{{ route('document.show') }}">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="bi bi-filetype-doc text-light text-lg"></i>
+                            <i class="bi bi-filetype-doc text-light text-lg "></i>
                             </div>
-                            <span class="nav-link-text ms-1 mt-2">Document</span>
+                            <span class="nav-link-text ms-1 mt-2 fw-bold">Document</span>
                         </a>
                         </li>
                     </ul>
             </div>
         </aside>
         <main class="main-content position-relative ">
-            <!-- Navbar -->
-            <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+            <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="false">
                 <div class="container-fluid py-1 px-3">
                     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                    <ul class="navbar-nav ms-auto justify-content-end ">
-                            @if(Auth::user()->role_id =="1")
+                    <ul class="navbar-nav ms-auto justify-content-end">
+                        @if(Auth::user()->role_id =="1")
                             <li class="nav-item dropdown text-dark pe-2 mx-3 d-flex align-items-center">
-                                <a href="javascript:;"  class="nav-link text-light p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a href="javascript:;"  class="nav-link  p-0
+                                    @if (DB::table('depenses')->where('approuve', false)->count() + DB::table('recettes')->where('approuve', false)->count() > 0)
+                                        animate__animated animate__headShake animate__infinite text-danger
+                                    @else
+                                        text-light
+                                    @endif
+                                    " id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-bell-fill cursor-pointer" ></i>
                                 </a>
                                 <ul class="dropdown-menu  dropdown-menu-end text-dark  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
@@ -99,9 +122,14 @@
                                         <a class="dropdown-item text-dark border-radius-md" href="{{ route('approuve.depense.show') }}">
                                             <div class="d-flex py-1">
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">Depenses</span><strong class="badge text-danger">{{ DB::table('depenses')->where('approuve', false)->count()  }}</strong>
-                                                </h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="col me-5">
+                                                        <p class="text-sm font-weight-normal mb-1">Depenses</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p class="badge text-danger me-auto">{{ DB::table('depenses')->where('approuve', false)->count() }}</p>
+                                                    </div>
+                                                </div>
                                                 <p class="text-xs text-secondary mb-0">
                                                 <i class="fa fa-clock me-1"></i>
                                                     @php
@@ -122,9 +150,16 @@
                                         <a class="dropdown-item border-radius-md" href="{{ route('approuve.recette.show') }}">
                                             <div class="d-flex py-1">
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                <span class="font-weight-bold">Recettes</span><strong class="badge text-danger ">{{ DB::table('depenses')->where('approuve', false)->count()  }}</strong>
-                                                </h6>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="col me-5">
+                                                    <p class="text-sm font-weight-normal mb-1">Recettes</p>
+                                                </div>
+                                                <div class="col">
+                                                    <p class="badge text-danger me-auto">{{ DB::table('recettes')->where('approuve', false)->count() }}</p>
+                                                </div>
+                                            </div>
+
+
                                                 <p class="text-xs text-secondary mb-0">
                                                 <i class="fa fa-clock me-1"></i>
                                                     @php
@@ -144,32 +179,33 @@
                                 </ul>
                             </li>
                             @endif
-                            <li class="nav-item d-flex  mx-3  align-items-center">
-                                <img src="{{ asset('images/O4PjbczuLsSRp8XWvtUM18lbv2POPNXUZNvknpzy.png') }}" style="width:40px;height:40px" class="rounded-circle img-thumbnail" alt="{{ auth()->user()->name }}" title="{{ auth()->user()->name }}" data-toggle="tooltip" data-placement="top">
-                            </li>
-                            <li class="nav-item d-flex  mx-3  align-items-center">
-                            <a href="{{ route('logout') }}" class="nav-link text-white font-weight-bold px-0">
-                                <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Sign out</span>
-                            </a>
-                            </li>
-                                <li class="nav-item d-lg-none ps-3  mx-3  d-flex align-items-center">
-                                <a href="#" class="nav-link text-white p-0" id="iconNavbarSidenav">
-                                    <div class="sidenav-toggler-inner">
-                                    <i class="sidenav-toggler-line bg-white"></i>
-                                    <i class="sidenav-toggler-line bg-white"></i>
-                                    <i class="sidenav-toggler-line bg-white"></i>
-                                    </div>
-                                </a>
-                                </li>
-                            <li class="nav-item pe-3  mx-3  d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-white p-0">
-                                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-                            </a>
-                            </li>
-                        </ul>
+                        <li class="nav-item dropdown d-flex mx-3 align-items-center">
+                        <a class="nav-link dropdown-toggle text-white font-weight-bold px-0" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img  src="{{ asset('storage/images/' . Auth::user()->url) }}" style="width:40px;height:40px" class="rounded-circle img-thumbnail me-2" alt="{{ auth()->user()->name }}" >
+                            <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                        </div>
+                        </li>
+                        <li class="nav-item d-flex mx-3 align-items-center">
+                        <a href="javascript:;" class="nav-link text-white p-0">
+                            <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                        </a>
+                        </li>
+                        <li class="nav-item d-lg-none ps-3 mx-3 d-flex align-items-center">
+                        <a href="#" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                            <div class="sidenav-toggler-inner">
+                            <i class="sidenav-toggler-line bg-white"></i>
+                            <i class="sidenav-toggler-line bg-white"></i>
+                            <i class="sidenav-toggler-line bg-white"></i>
+                            </div>
+                        </a>
+                        </li>
+                    </ul>
                     </div>
-                </div>
+                    </div>
             </nav>
             <!-- End Navbar -->
             <div class="container-fluid py-4">
@@ -205,43 +241,7 @@
             </div>
         </main>
     </div>
-        <!--   Core JS Files   -->
-            <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
-        <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
-        <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
-        <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
-        <script>
-            var win = navigator.platform.indexOf('Win') > -1;
-            if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = {
-                damping: '0.5'
-            }
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-            }
-        </script>
-
-        <script src="{{ asset('assets/js/argon-dashboard.min.js?v=2.0.4') }}"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
-            <script>
-                $(document).ready(function() {
-                    $('#recettes-table').DataTable({
-                        "paging": true,
-                        "searching": true,
-                        "ordering": true,
-                        "info": true,
-                        "responsive": true,
-                        "columnDefs": [
-                            { "orderable": false, "targets": [5,6,7] }
-                        ]
-                    });
-                });
-
-            </script>
-
-      @yield('scripts')
+@include('scripts')
 </body>
 
 </html>

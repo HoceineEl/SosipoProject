@@ -42,7 +42,7 @@ class RegisterController extends Controller
         $user->role_id = request('role');
         $user->password = bcrypt(request('password'));
         $avatar = request('avatar');
-        $url1 = $avatar->store('images');
+        $url1 = $avatar->store('public/images');
         $url = str_replace("images/", "", $url1);
         $user->url = $url;
         $user->save();

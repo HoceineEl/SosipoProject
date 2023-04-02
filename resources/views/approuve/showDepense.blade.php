@@ -40,8 +40,6 @@
                                     <a href="{{ url('depense/pdf/'.$depense->feuille) }}" class="btn btn-primary" target="_blank"><i class="bi bi-file-earmark-pdf"></i></a>
                                 </td>
                                 <td>
-
-
                                         <button type="button" class="btn btn-info mx-1" data-bs-toggle="modal" data-bs-target="#approveConfirmationModal{{ $depense->id }}">
                                             <i class="bi bi-check2-circle"></i>
                                         </button>
@@ -56,13 +54,19 @@
                                                     <div class="modal-body text-dark">
                                                         Êtes-vous sûr de vouloir approve cet depense ?
                                                     </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                    <form  action="{{ route('approuve.depense.post',["id" => $depense->id]) }}" method="POST">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-success">Approve</button>
-                                                    </form>
-                                                </div>
+                                                    <div class="modal-footer">
+                                                            <div class="row justify-content-end">
+                                                                <div class="col-auto">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                <form  action="{{ route('approuve.depense.post',["id" => $depense->id]) }}"  method="POST">
+                                                                    @csrf
+                                                                    <button type="submit" class="btn btn-success">Approve</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -80,14 +84,20 @@
                                                     <div class="modal-body text-dark">
                                                         Êtes-vous sûr de vouloir supprimer cet depense ?
                                                     </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                    <form  action="{{ route('approuve.depense.cancel',["id" => $depense->id]) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
-                                                    </form>
-                                                </div>
+                                                    <div class="modal-footer">
+                                                            <div class="row justify-content-end">
+                                                                <div class="col-auto">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                <form action="{{ route('approuve.depense.cancel',["id" => $depense->id]) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

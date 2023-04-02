@@ -35,15 +35,9 @@
                                 <td>{{ $recette->rubrique ? $recette->rubrique->libelle : '' }}</td>
                                 <td>{{ $recette->user->name }}</td>
                                 <td>
-                                    {{-- <a href="{{ asset($recette->feuille) }}" class="btn btn-primary" target="_blank">
-                                        <i class="bi bi-file-earmark-pdf"></i>
-                                    </a> --}}
                                     <a href="{{ url('recette/pdf/'.$recette->feuille) }}" class="btn btn-primary" target="_blank"><i class="bi bi-file-earmark-pdf"></i></a>
                                 </td>
                                 <td>
-                                                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $recette->id }}">
-                                            <i class="bi bi-x-circle"></i>
-                                        </button>
                                         <!-- Delete confirmation modal -->
                                         <div class="modal fade" id="deleteConfirmationModal{{ $recette->id }}" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel{{ $recette->id }}" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -55,18 +49,22 @@
                                                     <div class="modal-body text-dark">
                                                         Êtes-vous sûr de vouloir approuvé cet recette ?
                                                     </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                    <form  action="{{ route('approuve.recette.cancel',["id" => $recette->id]) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Approve</button>
-                                                    </form>
-                                                </div>
+                                                    <div class="modal-footer">
+                                                            <div class="row justify-content-end">
+                                                                <div class="col-auto">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                <form action="{{ route('approuve.recette.cancel',["id" => $recette->id]) }}" method="POST">
+                                                                    @csrf
+                                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    <div class="btn-group" role="group">
                                         <a href="{{ route('approuve.recette.post',["id" => $recette->id]) }}" class="btn btn-primary pe-2">
                                             <i class="bi bi-check2-circle"></i>
                                         </a>
@@ -84,17 +82,23 @@
                                                     <div class="modal-body text-dark">
                                                         Êtes-vous sûr de vouloir supprimer cet recette ?
                                                     </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                    <form  action="{{ route('approuve.recette.cancel',["id" => $recette->id]) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
-                                                    </form>
-                                                </div>
+                                                    <div class="modal-footer">
+                                                            <div class="row justify-content-end">
+                                                                <div class="col-auto">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                <form  action="{{ route('approuve.recette.cancel',["id" => $recette->id]) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+
                                     </div>
                                 </td>
                             </tr>
